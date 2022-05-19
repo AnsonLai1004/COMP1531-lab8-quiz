@@ -1,0 +1,23 @@
+image: comp1531/basic:latest
+
+stages:
+  - automarking
+
+before_script:
+  - git config user.email "comp1531-marker@cse.unsw.edu.au"
+  - git config user.name "comp1531-marker"
+  - git merge remotes/origin/master --allow-unrelated-histories -X ours -m "Automarking"
+
+automarking:
+  stage: automarking
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+  script:
+    - npm install
+    - python3 automarking.py $CI_PROJECT_NAME
+  only:
+    - marking
+  artifacts:
+    paths:
+      - mark.txt
