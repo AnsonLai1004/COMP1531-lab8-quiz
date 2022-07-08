@@ -42,10 +42,10 @@ app.get('/echo/echo', (req: Request, res: Response) => {
 
 app.post('/quiz/create', (req: Request, res: Response) => {
   // For PUT/POST requests, data is transfered through the JSON body
-  const { quizTitle, quizSypnosis } = req.body;
+  const { quizTitle, quizSynopsis } = req.body;
 
   // TODO: Implement
-  console.log('Do something with:', quizTitle, quizSypnosis);
+  console.log('Do something with:', quizTitle, quizSynopsis);
   res.json({ quizId: -999999 });
 });
 
