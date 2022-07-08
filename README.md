@@ -145,7 +145,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
     </td>
     <td>
         <b>Body Parameters</b><br/>
-        <code>{quizTitle, quizSypnosis}</code>
+        <code>{quizTitle, quizSynopsis}</code>
         <br/><br/>
         <b>Return Object</b><br/>
         <code>{quizId}</code>
@@ -154,7 +154,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
         Throw <code>HTTPError</code> (code <code>400</code>) when
         <ul>
             <li>quizTitle is an empty string, <code>""</code></li>
-            <li>quizSypnosis is an empty string <code>""</code></li>
+            <li>quizSynopsis is an empty string <code>""</code></li>
         </ul>
     </td>
   </tr>
@@ -190,7 +190,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
     </td>
     <td>
         <b>Body Parameters</b><br/>
-        <code>{quizId, quizTitle, quizSypnosis}</code>
+        <code>{quizId, quizTitle, quizSynopsis}</code>
         <br/><br/>
         <b>Return Object</b><br/>
         <code>{}</code>
@@ -200,7 +200,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
         <ul>
             <li>quizId does not refer to a valid quiz
             <li>quizTitle is an empty string, <code>""</code></li>
-            <li>quizSypnosis is an empty string <code>""</code></li>
+            <li>quizSynopsis is an empty string <code>""</code></li>
         </ul>
     </td>
   </tr>
@@ -362,11 +362,11 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
 | contains suffix **String** | `string` |
 | is exactly **message** | `string` |
 | is exactly **quizTitle** | `string` |
-| is exactly **quizSypnosis** | `string` |
+| is exactly **quizSynopsis** | `string` |
 | is exactly **questionType** | `string` - reminder: valid types are 'single' and 'multiple' |
 | is exactly **answers** | `Array` of objects, where each `object` contains keys `{isCorrect, answerString}` |
 | is exactly **questions** | `Array` of objects, where each `object` contains keys `{questionId, questionString, questionType, answers}` |
-| is exactly **quiz** | Object containing keys `{quizId, quizTitle, quizSypnosis, questions}` |
+| is exactly **quiz** | Object containing keys `{quizId, quizTitle, quizSynopsis, questions}` |
 | is exactly **quizzes** | `Array` of objects, where each `object` contains the keys `{quizId, quizTitle}` |
 
 ## Task
