@@ -298,6 +298,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
             <li>questionType is not either "single" or "multiple"
             <li>the questionType is "single" and there is not exactly 1 correct answer</li>
             <li>there are no correct answers</li>
+            <li>any of the <code>answerString</code> is an empty string, <code>""</code></li>
         </ul>
     </td>
   </tr>
