@@ -245,10 +245,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
         <code>{quizzes}</code>
     </td>
     <td>
-        Throw <code>HTTPError</code> (code <code>400</code>) when
-        <ul>
-            <li>quizId does not refer to a valid quiz
-        </ul>
+        N/A
     </td>
   </tr>
   <tr>
