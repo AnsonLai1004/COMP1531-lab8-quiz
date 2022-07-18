@@ -281,7 +281,7 @@ In addition to measuring our server code coverage, we will also be throwing HTTP
         Edits a question
     </td>
     <td>
-        POST
+        PUT
     </td>
     <td>
         <b>Body Parameters</b><br/>
@@ -415,8 +415,6 @@ To test your code and *view the coverage results*:
 ### Implementation
 
 In this lab, we recommend keeping your routes in [src/server.ts](src/server.ts) as wrappers around other functions.
-
-Also, a reminder that for GET requests, data is transferred through the query string, whereas for PUT/POST/DELETE, this is done through the JSON body.
 
 ### Frontend
 
