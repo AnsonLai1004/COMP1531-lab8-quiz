@@ -57,6 +57,13 @@ app.use(errorHandler());
 /**
  * Start server
  */
-app.listen(PORT, () => {
-  console.log(`Starting Express Server at the URL: '${SERVER_URL}'`);
+const server = app.listen(PORT, () => {
+  console.log(`Started server at URL: '${SERVER_URL}'`);
+});
+
+/**
+ * For coverage, handle Ctrl+C gracefully
+ */
+process.on('SIGINT', () => {
+  server.close(() => console.log('Shutting down server gracefully.'));
 });
