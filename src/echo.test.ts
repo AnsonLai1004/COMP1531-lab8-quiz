@@ -1,11 +1,5 @@
 import request from 'sync-request';
 
-test('Remove this test and uncomment the test below!', () => {
-  expect(1 + 1).toBe(2);
-});
-
-/*
-
 // We're only importing the SERVER_URL from config.
 // No functions that you've written should be imported,
 // as all tests should be done through HTTP requests.
@@ -51,5 +45,3 @@ test('success direct', () => {
 
 // Similar to lab05_forum, you may decide to simply these requests by writing
 // helper-wrapper functions :)
-
-*/

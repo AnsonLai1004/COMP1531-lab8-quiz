@@ -1,6 +1,6 @@
 import express, { json, Request, Response } from 'express';
 import cors from 'cors';
-
+import { quizCreate, quizDetails, quizEdit, quizRemove, quizzesList, questionAdd, questionEdit, questionRemove, clear } from './quiz';
 // OPTIONAL: Use middleware to log (print to terminal) incoming HTTP requests
 import morgan from 'morgan';
 
@@ -45,18 +45,57 @@ app.post('/quiz/create', (req: Request, res: Response) => {
   const { quizTitle, quizSynopsis } = req.body;
 
   // TODO: Implement
-  console.log('Do something with:', quizTitle, quizSynopsis);
-  res.json({ quizId: -999999 });
+  // console.log('Do something with:', quizTitle, quizSynopsis);
+  res.json(quizCreate(quizTitle, quizSynopsis));
 });
 
 // TODO: Remaining routes
-
+app.get('/quiz/details', (req: Request, res: Response) => {
+  const quizId = parseInt(req.query.quizId as string);
+  res.json(quizDetails(quizId));
+});
+app.put('/quiz/edit', (req: Request, res: Response) => {
+  const { quizId, quizTitle, quizSynopsis } = req.body;
+  res.json(quizEdit(quizId, quizTitle, quizSynopsis));
+});
+app.delete('/quiz/remove', (req: Request, res: Response) => {
+  const quizId = parseInt(req.query.quizId as string);
+  res.json(quizRemove(quizId));
+});
+app.get('/quizzes/list', (req: Request, res: Response) => {
+  res.json(quizzesList());
+});
+app.post('/question/add', (req: Request, res: Response) => {
+  const { quizId, questionString, questionType, answers } = req.body;
+  res.json(questionAdd(quizId, questionString, questionType, answers));
+});
+app.post('/question/edit', (req: Request, res: Response) => {
+  const { questionId, questionString, questionType, answers } = req.body;
+  res.json(questionEdit(questionId, questionString, questionType, answers));
+});
+app.delete('/question/remove', (req: Request, res: Response) => {
+  const questionId = parseInt(req.query.questionId as string);
+  res.json(questionRemove(questionId));
+});
+app.delete('/clear', (req: Request, res: Response) => {
+  res.json(clear());
+});
 // COMP1531 middleware - must use AFTER declaring your routes
 app.use(errorHandler());
 
 /**
  * Start server
  */
-app.listen(PORT, () => {
-  console.log(`Starting Express Server at the URL: '${SERVER_URL}'`);
+/**
+ * Start server
+ */
+const server = app.listen(PORT, () => {
+  console.log(`Started server at URL: '${SERVER_URL}'`);
+});
+
+/**
+ * For coverage, handle Ctrl+C gracefully
+ */
+process.on('SIGINT', () => {
+  server.close(() => console.log('Shutting down server gracefully.'));
 });
