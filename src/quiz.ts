@@ -75,7 +75,6 @@ function quizEdit(quizId: number, quizTitle: string, quizSynopsis: string) {
       return {};
     }
   }
-  
 }
 
 function quizRemove(quizId: number) {

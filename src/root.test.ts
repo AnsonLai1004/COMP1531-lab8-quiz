@@ -69,6 +69,7 @@ describe('/quiz/details', () => {
       quizSynopsis: 'valid',
       questions: [],
     });
+    
   });
 });
 
@@ -81,19 +82,30 @@ describe('/quiz/edit', () => {
   });
   test('correct return', () => {
     const quiz = reqQuizCreate('first', 'valid');
-    expect(reqQuizDetails(quiz.quizId)).toMatchObject({
-      quizId: quiz.quizId,
-      quizTitle: 'first',
+    const quiz2 = reqQuizCreate('second', 'valid');
+    expect(reqQuizDetails(quiz2.quizId)).toMatchObject({
+      quizId: quiz2.quizId,
+      quizTitle: 'second',
       quizSynopsis: 'valid',
       questions: [],
     });
-    reqQuizEdit(quiz.quizId, 'edit', 'edit');
-    expect(reqQuizDetails(quiz.quizId)).toMatchObject({
-      quizId: quiz.quizId,
+    reqQuizEdit(quiz2.quizId, 'edit', 'edit');
+    expect(reqQuizDetails(quiz2.quizId)).toMatchObject({
+      quizId: quiz2.quizId,
       quizTitle: 'edit',
       quizSynopsis: 'edit',
       questions: [],
     });
+    expect(reqQuizzesList()).toMatchObject([
+      {
+        quizId: quiz.quizId,
+        quizTitle: 'first',
+      },
+      {
+        quizId: quiz2.quizId,
+        quizTitle: 'edit',
+      },
+    ]);
   });
 });
 
@@ -175,7 +187,18 @@ describe('/question/add', () => {
     expect(() => reqQuestionAdd(quiz.quizId, 'first', 'single', noAns)).toThrowError('no correct answers');
   });
   test('correct return', () => {
+    const quiz1 = reqQuizCreate('beforeFirst', 'valid');
     const quiz = reqQuizCreate('first', 'valid');
+    expect(reqQuizzesList()).toMatchObject([
+      {
+        quizId: quiz1.quizId,
+        quizTitle: 'beforeFirst',
+      },
+      {
+        quizId: quiz.quizId,
+        quizTitle: 'first',
+      },
+    ]);
     const singleAns = [
       {
         isCorrect: true,
@@ -290,7 +313,18 @@ describe('/question/edit', () => {
     expect(() => reqQuestionEdit(question.questionId, 'edit', 'single', noAns)).toThrowError('no correct answers');
   });
   test('correct return', () => {
+    const quiz1 = reqQuizCreate('beforeFirst', 'valid');
     const quiz = reqQuizCreate('first', 'valid');
+    expect(reqQuizzesList()).toMatchObject([
+      {
+        quizId: quiz1.quizId,
+        quizTitle: 'beforeFirst',
+      },
+      {
+        quizId: quiz.quizId,
+        quizTitle: 'first',
+      },
+    ]);
     const singleAns = [
       {
         isCorrect: true,
@@ -301,7 +335,8 @@ describe('/question/edit', () => {
         answerString: 'wrong ans',
       },
     ];
-    const question = reqQuestionAdd(quiz.quizId, 'question1', 'single', singleAns);
+    const question1 = reqQuestionAdd(quiz.quizId, 'question1', 'multiple', singleAns);
+    const question = reqQuestionAdd(quiz.quizId, 'question2', 'single', singleAns);
     const editAns = [
       {
         isCorrect: true,
@@ -313,15 +348,31 @@ describe('/question/edit', () => {
       },
     ];
     expect(reqQuestionEdit(question.questionId, 'edit', 'single', editAns)).toStrictEqual({});
+    expect(reqQuestionEdit(question.questionId, 'edit', 'multiple', editAns)).toStrictEqual({});
     expect(reqQuizDetails(quiz.quizId)).toMatchObject({
       quizId: quiz.quizId,
       quizTitle: 'first',
       quizSynopsis: 'valid',
       questions: [
         {
+          questionId: question1.questionId,
+          questionString: 'question1',
+          questionType: 'multiple',
+          answers: [
+            {
+              isCorrect: true,
+              answerString: 'correct ans',
+            },
+            {
+              isCorrect: false,
+              answerString: 'wrong ans',
+            },
+          ],
+        },
+        {
           questionId: question.questionId,
           questionString: 'edit',
-          questionType: 'single',
+          questionType: 'multiple',
           answers: [
             {
               isCorrect: true,
@@ -354,6 +405,7 @@ describe('/question/remove', () => {
         answerString: 'wrong ans',
       },
     ];
+    const question1 = reqQuestionAdd(quiz.quizId, 'questionfirst', 'single', singleAns);
     const question = reqQuestionAdd(quiz.quizId, 'question1', 'single', singleAns);
     expect(reqQuestionRemove(question.questionId)).toStrictEqual({});
     expect(reqQuizDetails(quiz.quizId)).toMatchObject({
@@ -362,5 +414,8 @@ describe('/question/remove', () => {
       quizSynopsis: 'valid',
       questions: [],
     });
+    reqQuestionRemove(question1.questionId);
   });
 });
+
+expect(false).toEqual(false);
