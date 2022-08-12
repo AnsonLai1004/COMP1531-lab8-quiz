@@ -40,7 +40,7 @@ export function quizDetails(quizId: number): { quiz: Quiz } {
 }
 
 export function ensureValidQuiz(quizId: number): Quiz {
-  const quiz = state.quizzes.find(quiz => quiz.quizId === quizId); 
+  const quiz = state.quizzes.find(quiz => quiz.quizId === quizId);
   if (quiz === undefined) {
     throw HTTPError(400, 'quizId does not refer to a valid quiz');
   }
@@ -60,7 +60,7 @@ export function quizEdit(quizId: number, quizTitle: string, quizSynopsis: string
   return {};
 }
 
-export function quizRemove(quizId: number): Record<string, never> { 
+export function quizRemove(quizId: number): Record<string, never> {
   const quiz = ensureValidQuiz(quizId);
   state.quizzes.splice(state.quizzes.indexOf(quiz), 1);
   // Remove all the questions as well.

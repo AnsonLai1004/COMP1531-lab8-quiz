@@ -53,7 +53,7 @@ function ensureValidQuestionRequest(quizId: number, questionString: string, ques
   }
 }
 
-function ensureQuestionType(questionType: QuestionType) { 
+function ensureQuestionType(questionType: QuestionType) {
   if (questionTypes.indexOf(questionType) === -1) {
     throw HTTPError(400, 'questionType is not either "single" or "multiple"');
   }
