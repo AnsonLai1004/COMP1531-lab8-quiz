@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import { echo } from './echo';
 import { PORT, SERVER_URL } from './config';
 import { clear as quizClear, quizCreate, quizDetails, quizEdit, quizRemove, quizzesList } from './quiz';
-import { clear as questionClear, questionAdd } from './question';
+import { clear as questionClear, questionAdd, questionEdit, questionRemove } from './question';
 
 // COMP1531 middleware - must use AFTER declaring your routes
 import errorHandler from 'middleware-http-errors';
@@ -70,6 +70,16 @@ app.get('/quizzes/list', (_req: Request, res: Response) => {
 app.post('/question/add', (req: Request, res: Response) => {
   const { quizId, questionString, questionType, answers } = req.body;
   res.json(questionAdd(quizId, questionString, questionType, answers));
+});
+
+app.put('/question/edit', (req: Request, res: Response) => {
+  const { questionId, questionString, questionType, answers } = req.body;
+  res.json(questionEdit(questionId, questionString, questionType, answers));
+});
+
+app.delete('/question/remove', (req: Request, res: Response) => {
+  const questionId = parseInt(req.query.questionId as string);
+  res.json(questionRemove(questionId));
 });
 
 app.delete('/clear', (_req: Request, res: Response) => {
